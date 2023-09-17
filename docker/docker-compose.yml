@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  web:
+    container_name: web
+#    restart: always
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - ..:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    volumes:
+      - ..:/var/www
+
+  db:
+    container_name: db
+#    restart: always
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    ports:
+      - "8001:5432"
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=user_app
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ../data/db:/var/lib/postgresql/data:rw
