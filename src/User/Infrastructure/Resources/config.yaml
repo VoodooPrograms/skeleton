@@ -1,0 +1,17 @@
+imports:
+  - { resource: config/*.yaml }
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+#  _instanceof:
+  App\:
+    resource: '../../../../src/**/Application/**/Command/**/*CommandHandler.php'
+    tags: {name: 'messenger.message_handler', bus: 'messenger.bus.command'}
+
+  App\SharedKernel\Infrastructure\Application\MessengerCommandBus:
+    arguments:
+      $messageBus: '@messenger.bus.command'
+      $entityManager: '@doctrine.orm.default_entity_manager'

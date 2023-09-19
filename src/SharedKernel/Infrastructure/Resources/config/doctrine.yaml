@@ -1,0 +1,4 @@
+doctrine:
+  dbal:
+    types:
+      uuid: App\SharedKernel\Infrastructure\Doctrine\Types\UuidType

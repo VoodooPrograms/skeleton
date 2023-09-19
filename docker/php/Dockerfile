@@ -7,6 +7,9 @@ RUN apk add --no-cache \
     zip \
     unzip
 
+# Install PostgreSQL client and the required PHP extension
+RUN apk --update --no-cache add postgresql-dev && \
+    docker-php-ext-install pdo_pgsql
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 

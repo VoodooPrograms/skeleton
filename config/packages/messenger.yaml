@@ -1,0 +1,49 @@
+framework:
+  messenger:
+#    failure_transport: failed
+    default_bus: messenger.bus.command
+    reset_on_message: true # Reset DI services automatically when handling a messages
+    transports:
+#      failed:
+#        dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+#        options:
+#          queue_name: failed
+      events:
+        dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+        retry_strategy:
+          delay: 2000
+          max_retries: 3
+          multiplier: 2
+          max_delay: 0
+        options:
+          queue_name: events
+    buses:
+      messenger.bus.command:
+        default_middleware: false
+        middleware:
+          - handle_message
+
+#      messenger.bus.query:
+#        default_middleware: false
+#        middleware:
+#          - handle_message
+#
+#      messenger.bus.event.async:
+#        default_middleware: allow_no_handlers
+#        middleware:
+#          - handle_message
+#      email.worker.consuming:
+#        default_middleware: false
+#        middleware:
+#          - handle_message
+
+#    routing:
+#      'App\User\Application\Message\Command\CreateUser\CreateUserCommand': async
+
+# when@test:
+#    framework:
+#        messenger:
+#            transports:
+#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
+#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
+#                async: 'in-memory://'

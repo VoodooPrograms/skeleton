@@ -1,0 +1,41 @@
+App\User\Domain\User:
+  type: entity
+  table: users
+  id:
+    uuid:
+      type: uuid
+  fields:
+    name:
+      type: string
+      length: 60
+    email:
+      type: string
+      length: 60
+    password:
+      type: string
+      length: 255
+    profilePictureLink:
+      type: string
+      length: 255
+      nullable: true
+    biography:
+      type: text
+      nullable: true
+    registrationDate:
+      type: datetimetz_immutable
+    lastLoginDate:
+      type: datetimetz_immutable
+      nullable: true
+    verifiedDate:
+      type: datetimetz_immutable
+      nullable: true
+    createdAt:
+      type: datetimetz_immutable
+    updatedAt:
+      type: datetimetz_immutable
+    deletedAt:
+      type: datetimetz_immutable
+      nullable: true
+#  lifecycleCallbacks:
+#    prePersist: [setCreatedAt, setUpdatedAt]
+#    preUpdate: [setUpdatedAt]

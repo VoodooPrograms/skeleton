@@ -1,0 +1,19 @@
+imports:
+  - { resource: config/*.yaml }
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface:
+    class:
+      Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory
+    arguments:
+      $passwordHashers:
+        common:
+          algorithm: 'bcrypt'
+
+  App\SharedKernel\Presentation\Http\EventListener\ExceptionListener:
+    arguments:
+      $environment: '%kernel.environment%'

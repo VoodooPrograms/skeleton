@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            User:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/src/User/Infrastructure/User/Doctrine/Mapping'
+                prefix: 'App\User\Domain'
+                alias: User
